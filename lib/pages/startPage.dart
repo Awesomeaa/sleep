@@ -20,6 +20,16 @@ class StartPage extends StatelessWidget {
                   colors: [Color(0xff003593), Color(0xff003ABA)])*/),
           child: Column(
             children: <Widget>[
+              Container(
+                padding: EdgeInsets.all(20),
+                child: TextField(
+                  
+  decoration: InputDecoration(
+    border: InputBorder.none,
+    hintText: 'Enter a search term'
+  ),
+),
+              ),
               Container(   
                 width: 375,
                 margin: EdgeInsets.only(top: height/17.2),
