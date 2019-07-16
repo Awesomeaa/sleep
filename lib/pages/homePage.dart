@@ -50,7 +50,6 @@ class _HomePageState extends State<HomePage> with WidgetsBindingObserver {
         break;
     }
   }
-
   int ii = 0;
   bool boolt = false;
   Color _textColor = Color(0xff003ABA);

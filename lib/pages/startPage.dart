@@ -1,10 +1,27 @@
 import "package:flutter/material.dart";
+import 'dart:async';
 
-class StartPage extends StatelessWidget {
-  const StartPage({Key key}) : super(key: key);
+class StartPage extends StatefulWidget {
+  _StartPageState createState() => _StartPageState();
+}
+
+class _StartPageState extends State<StartPage> {
+  @override void initState() {
+    // TODO: implement initState
+    super.initState();
+    Timer.periodic(Duration(seconds: 1), (Timer t) => stateSet());
+  }
 
   @override
+  void dispose(){
+    textFieldController.dispose();
+  }
+  var text = "Name";
+  final textFieldController = TextEditingController();
+  @override
   Widget build(BuildContext context) {
+      text = textFieldController.text;
+    print(textFieldController.text);
     var height = MediaQuery.of(context).size.height;
     var width = MediaQuery.of(context).size.width;
     return Scaffold(
@@ -23,10 +40,10 @@ class StartPage extends StatelessWidget {
               Container(
                 padding: EdgeInsets.all(20),
                 child: TextField(
+                  controller: textFieldController,
                   
   decoration: InputDecoration(
     border: InputBorder.none,
-    hintText: 'Enter a search term'
   ),
 ),
               ),
@@ -41,7 +58,7 @@ class StartPage extends StatelessWidget {
                 child: Column(
                   children: <Widget>[
                     Container(alignment: Alignment.centerLeft, child: Text("Hello,", style: TextStyle(fontWeight: FontWeight.w300, fontSize: 33.6),),margin: EdgeInsets.only(left: width/20)),
-                    Container(alignment: Alignment.centerLeft, padding: EdgeInsets.only(bottom: height/50),child: Text("Name", style: TextStyle(fontWeight: FontWeight.bold, fontSize: 50.4)), margin: EdgeInsets.only(left: width/20),)
+                    Container(alignment: Alignment.centerLeft, padding: EdgeInsets.only(bottom: height/50),child: Text(textFieldController.text, style: TextStyle(fontWeight: FontWeight.bold, fontSize: 50.4)), margin: EdgeInsets.only(left: width/20),)
                   ],
                 ),
               ),
@@ -83,7 +100,14 @@ class StartPage extends StatelessWidget {
                         Container(alignment: Alignment.bottomLeft, child: Text("am", style: TextStyle(fontWeight: FontWeight.bold, fontSize: 28),)),
                       ],
                     ), margin: EdgeInsets.only(left: width/20),),
-                    Container(color: Color(0xff003ABA), child: Icon(Icons.ac_unit), margin: EdgeInsets.only(bottom: 0),),
+                    Container(
+                      decoration: BoxDecoration(
+                        borderRadius: BorderRadius.circular(50),
+                        color: Color(0xff003ABA)
+                      ),
+                      child: Icon(Icons.ac_unit, size: 30), 
+                      padding: EdgeInsets.only(bottom: 0),
+                      ),
                   ],
                 ),
               ),
@@ -94,4 +118,10 @@ class StartPage extends StatelessWidget {
       ),
     );
   }
+  void stateSet()
+{
+  setState(() {
+    
+  });
+}
 }
