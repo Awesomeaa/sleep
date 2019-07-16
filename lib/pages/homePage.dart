@@ -4,6 +4,7 @@ import "package:flutter/material.dart";
 import 'package:intl/intl.dart';
 import 'dart:async';
 import "package:flare_flutter/flare_actor.dart";
+import 'package:shared_preferences/shared_preferences.dart';
 
 Stopwatch stop = new Stopwatch();
 Stopwatch stop1 = new Stopwatch();
@@ -216,8 +217,32 @@ class _HomePageState extends State<HomePage> with WidgetsBindingObserver {
   var minutes = 0;
   var seconds = 0;
   var milleseconds = 0;
+  var addmilli = 0;
+  bool startup = false;
   String saa() {
-    milleseconds = stop.elapsedMilliseconds;
+    
+    void Save() async{
+      final prefs = await SharedPreferences.getInstance();
+      prefs.setInt('milli', milleseconds);
+    }
+
+    void Load() async{
+      final prefs = await SharedPreferences.getInstance();
+      addmilli = prefs.getInt('milli');
+    }
+
+    void awaitsave() async{
+      await Save();
+    }
+    awaitsave();
+    
+    if (!startup){
+      Load();
+      startup = !startup;
+    }else {
+      milleseconds = addmilli + stop.elapsedMilliseconds;
+    }
+
     seconds = (milleseconds / 1000).toInt();
     minutes = (seconds / 60).toInt();
     hours = (minutes / 60).toInt();
@@ -227,7 +252,7 @@ class _HomePageState extends State<HomePage> with WidgetsBindingObserver {
     while (minutes >= 60) {
       minutes -= 60;
     }
-    if (stop.elapsedMilliseconds > 0) {
+    if (milleseconds > 0) {
       _textColor = Colors.red;
     } else {
       _textColor = Color(0xff003ABA);
