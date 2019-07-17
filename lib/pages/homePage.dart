@@ -6,6 +6,7 @@ import 'dart:async';
 import "package:flare_flutter/flare_actor.dart";
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:sleep/pages/startPage.dart';
+import 'package:sleep/main.dart';
 
 Stopwatch stop = new Stopwatch();
 Stopwatch stop1 = new Stopwatch();
@@ -253,40 +254,16 @@ class _HomePageState extends State<HomePage> with WidgetsBindingObserver {
       });
     }
   }
-
   var hours = 0;
   var minutes = 0;
   var seconds = 0;
-  var milleseconds = 0;
-  var addmilli = 0;
-  bool startup = false;
   String saa() {
-    
-    void Save() async{
-      final prefs = await SharedPreferences.getInstance();
-      prefs.setInt('milli', milleseconds);
-    }
-
-    void Load() async{
-      final prefs = await SharedPreferences.getInstance();
-      addmilli = prefs.getInt('milli');
-    }
-
-    void awaitsave() async{
-      await Save();
-    }
-    awaitsave();
-    
-    if (!startup){
-      Load();
-      startup = !startup;
-    }else {
-      milleseconds = addmilli + stop.elapsedMilliseconds;
-    }
+    MyApp.saveload();
 
     seconds = (milleseconds / 1000).toInt();
     minutes = (seconds / 60).toInt();
     hours = (minutes / 60).toInt();
+    print(milleseconds);
     while (seconds >= 60) {
       seconds -= 60;
     }

@@ -1,5 +1,6 @@
 import "package:flutter/material.dart";
 import 'dart:async';
+import 'package:sleep/main.dart';
 
 String dropdownValue;
 class StartPage extends StatefulWidget {
@@ -17,12 +18,17 @@ class _StartPageState extends State<StartPage> {
   void dispose(){
     textFieldController.dispose();
   }
-  var text = "Name";
   final textFieldController = TextEditingController();
   @override
   Widget build(BuildContext context) {
-      text = textFieldController.text;
-    print(textFieldController.text);
+    MyApp.saveload();
+    if (textFieldController.text != ''){
+      name = textFieldController.text;
+      startup = false;
+    }
+    print(name);
+    //print(textFieldController.text);
+    
     var height = MediaQuery.of(context).size.height;
     var width = MediaQuery.of(context).size.width;
     return Scaffold(
@@ -59,7 +65,7 @@ class _StartPageState extends State<StartPage> {
                 child: Column(
                   children: <Widget>[
                     Container(alignment: Alignment.centerLeft, child: Text("Hello,", style: TextStyle(fontWeight: FontWeight.w300, fontSize: 33.6),),margin: EdgeInsets.only(left: width/20)),
-                    Container(alignment: Alignment.centerLeft, padding: EdgeInsets.only(bottom: height/50),child: Text(textFieldController.text, style: TextStyle(fontWeight: FontWeight.bold, fontSize: 50.4)), margin: EdgeInsets.only(left: width/20),)
+                    Container(alignment: Alignment.centerLeft, padding: EdgeInsets.only(bottom: height/50),child: Text(name, style: TextStyle(fontWeight: FontWeight.bold, fontSize: 50.4)), margin: EdgeInsets.only(left: width/20),)
                   ],
                 ),
               ),
