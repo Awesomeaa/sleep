@@ -12,6 +12,7 @@ int addmilli = 0;
 var startup = false;
 String name = "name";
 bool nameSave = true;
+bool nameBool = true;
 
 class MyApp extends StatelessWidget {
   // This widget is the root of your application.
@@ -30,11 +31,21 @@ class MyApp extends StatelessWidget {
       print("oof" + name);
     }
 
+    void nameLoad() async{
+      final prefs = await SharedPreferences.getInstance();
+      name = prefs.getString('name');
+    }
+
     void awaitsave() async{
       await Save();
     }
     awaitsave();
     
+    if (nameBool){
+      nameLoad();
+      nameBool = false;
+    }
+
     if (!startup){
       Load();
       startup = !startup;
