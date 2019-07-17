@@ -24,7 +24,7 @@ class _StartPageState extends State<StartPage> {
     MyApp.saveload();
     if (textFieldController.text != ''){
       name = textFieldController.text;
-      startup = false;
+      nameBool = true;
     }
     print(name);
     //print(textFieldController.text);
