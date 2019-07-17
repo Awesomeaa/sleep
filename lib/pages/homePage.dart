@@ -10,6 +10,9 @@ import 'package:sleep/main.dart';
 
 Stopwatch stop = new Stopwatch();
 Stopwatch stop1 = new Stopwatch();
+Stopwatch sleepTime = new Stopwatch();
+
+int dropdownInt = 7;
 
 class HomePage extends StatefulWidget {
   _HomePageState createState() => _HomePageState();
@@ -58,46 +61,21 @@ class _HomePageState extends State<HomePage> with WidgetsBindingObserver {
   Color _textColor = Color(0xff003ABA);
   bool tapped =false;
   int time;
-  int dropdownInt;
+  int countHours = 0;
+  int countMinutes = 0;
+  String ampm = "am";
   @override
   Widget build(BuildContext context) {
-    switch(dropdownValue){
-      case "One":
-        dropdownInt = 1;
-        break;
-      case "One":
-        dropdownInt = 1;
-        break;
-        case "One":
-        dropdownInt = 1;
-        break;
-        case "One":
-        dropdownInt = 1;
-        break;
-        case "One":
-        dropdownInt = 1;
-        break;
-        case "One":
-        dropdownInt = 1;
-        break;
-        case "One":
-        dropdownInt = 1;
-        break;
-        case "One":
-        dropdownInt = 1;
-        break;
-        case "One":
-        dropdownInt = 1;
-        break;
-        case "One":
-        dropdownInt = 1;
-        break;
-        case "One":
-        dropdownInt = 1;
-        break;
-        case "One":
-        dropdownInt = 1;
-        break;
+    if (DateTime.now().hour > 12){
+      ampm = "pm";
+    }else {
+      ampm = "am";
+    }
+    countHours = (23 - DateTime.now().hour) + dropdownInt;
+    countMinutes = (60 - DateTime.now().minute);
+    if (countMinutes == 60){
+      countMinutes -= 60;
+      countHours += 1;
     }
     stop1.start();
     if (stop1.elapsedMilliseconds >= 10000) {
@@ -121,7 +99,7 @@ class _HomePageState extends State<HomePage> with WidgetsBindingObserver {
                     fontSize: 101),
                 children: <TextSpan>[
               TextSpan(
-                  text: "am",
+                  text: ampm,
                   style:
                       TextStyle(fontWeight: FontWeight.normal, fontSize: 42.0)),
             ])),
@@ -139,7 +117,7 @@ class _HomePageState extends State<HomePage> with WidgetsBindingObserver {
               width: 350,
               alignment: Alignment.topCenter,
               child: Text(
-                "2 Hours 0 minutes",
+                countHours.toString() + " Hours " + countMinutes.toString() + " Minutes",
                 style: TextStyle(
                     fontSize: 30,
                     fontWeight: FontWeight.bold,
