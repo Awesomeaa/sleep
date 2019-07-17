@@ -5,6 +5,7 @@ import 'package:intl/intl.dart';
 import 'dart:async';
 import "package:flare_flutter/flare_actor.dart";
 import 'package:shared_preferences/shared_preferences.dart';
+import 'package:sleep/pages/startPage.dart';
 
 Stopwatch stop = new Stopwatch();
 Stopwatch stop1 = new Stopwatch();
@@ -55,8 +56,48 @@ class _HomePageState extends State<HomePage> with WidgetsBindingObserver {
   bool boolt = false;
   Color _textColor = Color(0xff003ABA);
   bool tapped =false;
+  int time;
+  int dropdownInt;
   @override
   Widget build(BuildContext context) {
+    switch(dropdownValue){
+      case "One":
+        dropdownInt = 1;
+        break;
+      case "One":
+        dropdownInt = 1;
+        break;
+        case "One":
+        dropdownInt = 1;
+        break;
+        case "One":
+        dropdownInt = 1;
+        break;
+        case "One":
+        dropdownInt = 1;
+        break;
+        case "One":
+        dropdownInt = 1;
+        break;
+        case "One":
+        dropdownInt = 1;
+        break;
+        case "One":
+        dropdownInt = 1;
+        break;
+        case "One":
+        dropdownInt = 1;
+        break;
+        case "One":
+        dropdownInt = 1;
+        break;
+        case "One":
+        dropdownInt = 1;
+        break;
+        case "One":
+        dropdownInt = 1;
+        break;
+    }
     stop1.start();
     if (stop1.elapsedMilliseconds >= 10000) {
       boolt = true;

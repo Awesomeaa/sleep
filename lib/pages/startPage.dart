@@ -1,6 +1,7 @@
 import "package:flutter/material.dart";
 import 'dart:async';
 
+String dropdownValue;
 class StartPage extends StatefulWidget {
   _StartPageState createState() => _StartPageState();
 }
@@ -96,7 +97,23 @@ class _StartPageState extends State<StartPage> {
                     Container(alignment: Alignment.center, padding: EdgeInsets.only(bottom: height/50),child: Row(
                       mainAxisAlignment: MainAxisAlignment.center,
                       children: <Widget>[
-                        Text("7:00", style: TextStyle(fontWeight: FontWeight.bold, fontSize: 70)),
+                        DropdownButton<String>(
+        value: dropdownValue,
+        onChanged: (String newValue) {
+          setState(() {
+            dropdownValue = newValue;
+          });
+        },
+        items: <String>['One', 'Two', 'Three', 'Four', 'Five', 'Six', 'Sevem', 'Eight', 'Nine', 'Ten', 'Eleven', 'Twelve']
+          .map<DropdownMenuItem<String>>((String value) {
+            return DropdownMenuItem<String>(
+              value: value,
+              child: Text(value),
+            );
+          })
+          
+          .toList(),
+      ),
                         Container(alignment: Alignment.bottomLeft, child: Text("am", style: TextStyle(fontWeight: FontWeight.bold, fontSize: 28),)),
                       ],
                     ), margin: EdgeInsets.only(left: width/20),),
