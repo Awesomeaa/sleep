@@ -219,7 +219,7 @@ class _HomePageState extends State<HomePage> with WidgetsBindingObserver {
             height: 350,
         child: FlareActor(
           "assets/Space Ship.flr",
-          animation: "Untitled",
+          animation: "Space Ship",
         )
       ),]);
     var children = <Widget>[hi];

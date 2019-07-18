@@ -5,6 +5,7 @@ import 'homePage.dart';
 
 bool isNone = false;
 String dropdownValue;
+bool isStart = false;
 final textFieldController = TextEditingController();
 class StartPage extends StatefulWidget {
   _StartPageState createState() => _StartPageState();
@@ -19,6 +20,7 @@ class _StartPageState extends State<StartPage> {
 
   @override
   void dispose(){
+    
   }
   String name = "Name";
   @override
