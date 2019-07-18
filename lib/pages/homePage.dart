@@ -58,44 +58,45 @@ class _HomePageState extends State<HomePage> with WidgetsBindingObserver {
   bool tapped =false;
   int time;
   int dropdownInt;
+  int timeLeft = 0;
   @override
   Widget build(BuildContext context) {
     switch(dropdownValue){
       case "One":
         dropdownInt = 1;
         break;
-      case "One":
-        dropdownInt = 1;
+      case "Two":
+        dropdownInt = 2;
         break;
-        case "One":
-        dropdownInt = 1;
+      case "Three":
+        dropdownInt = 3;
         break;
-        case "One":
-        dropdownInt = 1;
+      case "Four":
+        dropdownInt = 4;
         break;
-        case "One":
-        dropdownInt = 1;
+      case "Five":
+        dropdownInt = 5;
         break;
-        case "One":
-        dropdownInt = 1;
+      case "Six":
+        dropdownInt = 6;
         break;
-        case "One":
-        dropdownInt = 1;
+      case "Sevem":
+        dropdownInt = 7;
         break;
-        case "One":
-        dropdownInt = 1;
+      case "Eight":
+        dropdownInt = 8;
         break;
-        case "One":
-        dropdownInt = 1;
+      case "Nine":
+        dropdownInt = 9;
         break;
-        case "One":
-        dropdownInt = 1;
+      case "Ten":
+        dropdownInt = 10;
         break;
-        case "One":
-        dropdownInt = 1;
+      case "Eleven":
+        dropdownInt = 11;
         break;
-        case "One":
-        dropdownInt = 1;
+      case "Twelve":
+        dropdownInt = 12;
         break;
     }
     stop1.start();
