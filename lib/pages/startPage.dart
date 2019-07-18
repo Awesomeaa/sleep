@@ -5,6 +5,7 @@ import 'homePage.dart';
 
 bool isNone = false;
 String dropdownValue;
+final textFieldController = TextEditingController();
 class StartPage extends StatefulWidget {
   _StartPageState createState() => _StartPageState();
 }
@@ -18,10 +19,8 @@ class _StartPageState extends State<StartPage> {
 
   @override
   void dispose(){
-    textFieldController.dispose();
   }
-  final textFieldController = TextEditingController();
-  String name = "";
+  String name = "Name";
   @override
   Widget build(BuildContext context) {
     switch(dropdownValue){
@@ -118,6 +117,7 @@ class _StartPageState extends State<StartPage> {
                   ),
           child: Column(
             children: <Widget>[
+              
               Container(   
                 width: 375,
                 margin: EdgeInsets.only(top: height/17.2),
@@ -129,7 +129,9 @@ class _StartPageState extends State<StartPage> {
                 child: Column(
                   children: <Widget>[
                     Container(alignment: Alignment.centerLeft, child: Text("Hello,", style: TextStyle(fontWeight: FontWeight.w300, fontSize: 33.6),),margin: EdgeInsets.only(left: width/20)),
-                    Container(alignment: Alignment.centerLeft, padding: EdgeInsets.only(bottom: height/50),child: Text(name, style: TextStyle(fontWeight: FontWeight.bold, fontSize: 50.4)), margin: EdgeInsets.only(left: width/20),)
+                    Container(alignment: Alignment.centerLeft, padding: EdgeInsets.only(bottom: height/50),child: GestureDetector(child: Text(name, style: TextStyle(fontWeight: FontWeight.bold, fontSize: 50.4)), onTap: () { setState(() {
+                      _ackAlert(context);
+                    });},), margin: EdgeInsets.only(left: width/20),)
                   ],
                 ),
               ),
@@ -211,4 +213,29 @@ class _StartPageState extends State<StartPage> {
     
   });
 }
+}
+Future<void> _ackAlert(BuildContext context) {
+  return showDialog<void>(
+    context: context,
+    builder: (BuildContext context) {
+      return AlertDialog(
+        title: Text('What is your name?'),
+        content: TextField(
+                  controller: textFieldController,
+                  
+  decoration: InputDecoration(
+    border: InputBorder.none,
+  ),
+),
+        actions: <Widget>[
+          FlatButton(
+            child: Text('Ok'),
+            onPressed: () {
+              Navigator.of(context).pop();
+            },
+          ),
+        ],
+      );
+    },
+  );
 }

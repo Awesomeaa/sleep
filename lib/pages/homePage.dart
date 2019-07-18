@@ -215,9 +215,8 @@ class _HomePageState extends State<HomePage> with WidgetsBindingObserver {
         ),
       ),
     Container(
-      margin: EdgeInsets.only(top: 50),
-            width: 300,
-            height: 300,
+            width: 400,
+            height: 350,
         child: FlareActor(
           "assets/Space Ship.flr",
           animation: "Untitled",
