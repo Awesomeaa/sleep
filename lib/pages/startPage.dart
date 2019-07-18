@@ -1,5 +1,7 @@
 import "package:flutter/material.dart";
 import 'dart:async';
+import 'package:sleep/main.dart';
+import 'homePage.dart';
 
 String dropdownValue;
 class StartPage extends StatefulWidget {
@@ -17,12 +19,55 @@ class _StartPageState extends State<StartPage> {
   void dispose(){
     textFieldController.dispose();
   }
-  var text = "Name";
   final textFieldController = TextEditingController();
   @override
   Widget build(BuildContext context) {
-      text = textFieldController.text;
-    print(textFieldController.text);
+    switch(dropdownValue){
+      case "One":
+        dropdownInt = 1;
+        break;
+      case "Two":
+        dropdownInt = 2;
+        break;
+        case "Three":
+        dropdownInt = 3;
+        break;
+        case "Four":
+        dropdownInt = 4;
+        break;
+        case "Five":
+        dropdownInt = 5;
+        break;
+        case "Six":
+        dropdownInt = 6;
+        break;
+        case "Seven":
+        dropdownInt = 7;
+        break;
+        case "Eight":
+        dropdownInt = 8;
+        break;
+        case "Nine":
+        dropdownInt = 9;
+        break;
+        case "Ten":
+        dropdownInt = 10;
+        break;
+        case "Eleven":
+        dropdownInt = 11;
+        break;
+        case "Twelve":
+        dropdownInt = 12;
+        break;
+    }
+    MyApp.saveload();
+    if (textFieldController.text != ''){
+      name = textFieldController.text;
+      nameBool = true;
+    }
+    print(name);
+    //print(textFieldController.text);
+    
     var height = MediaQuery.of(context).size.height;
     var width = MediaQuery.of(context).size.width;
     return Scaffold(
@@ -59,7 +104,7 @@ class _StartPageState extends State<StartPage> {
                 child: Column(
                   children: <Widget>[
                     Container(alignment: Alignment.centerLeft, child: Text("Hello,", style: TextStyle(fontWeight: FontWeight.w300, fontSize: 33.6),),margin: EdgeInsets.only(left: width/20)),
-                    Container(alignment: Alignment.centerLeft, padding: EdgeInsets.only(bottom: height/50),child: Text(textFieldController.text, style: TextStyle(fontWeight: FontWeight.bold, fontSize: 50.4)), margin: EdgeInsets.only(left: width/20),)
+                    Container(alignment: Alignment.centerLeft, padding: EdgeInsets.only(bottom: height/50),child: Text(name, style: TextStyle(fontWeight: FontWeight.bold, fontSize: 50.4)), margin: EdgeInsets.only(left: width/20),)
                   ],
                 ),
               ),
@@ -76,7 +121,7 @@ class _StartPageState extends State<StartPage> {
                     Container(alignment: Alignment.center, padding: EdgeInsets.only(bottom: height/50),child: Row(
                       mainAxisAlignment: MainAxisAlignment.center,
                       children: <Widget>[
-                        Text("7:00", style: TextStyle(fontWeight: FontWeight.bold, fontSize: 70)),
+                        Text(dropdownInt.toString() + ":00", style: TextStyle(fontWeight: FontWeight.bold, fontSize: 70)),
                         Container(alignment: Alignment.bottomLeft, child: Text("am", style: TextStyle(fontWeight: FontWeight.bold, fontSize: 28),))
                       ],
                     ), margin: EdgeInsets.only(left: width/20),)
@@ -104,7 +149,7 @@ class _StartPageState extends State<StartPage> {
             dropdownValue = newValue;
           });
         },
-        items: <String>['One', 'Two', 'Three', 'Four', 'Five', 'Six', 'Sevem', 'Eight', 'Nine', 'Ten', 'Eleven', 'Twelve']
+        items: <String>['One', 'Two', 'Three', 'Four', 'Five', 'Six', 'Seven', 'Eight', 'Nine', 'Ten', 'Eleven', 'Twelve']
           .map<DropdownMenuItem<String>>((String value) {
             return DropdownMenuItem<String>(
               value: value,

@@ -6,9 +6,13 @@ import 'dart:async';
 import "package:flare_flutter/flare_actor.dart";
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:sleep/pages/startPage.dart';
+import 'package:sleep/main.dart';
 
 Stopwatch stop = new Stopwatch();
 Stopwatch stop1 = new Stopwatch();
+Stopwatch sleepTime = new Stopwatch();
+
+int dropdownInt = 7;
 
 class HomePage extends StatefulWidget {
   _HomePageState createState() => _HomePageState();
@@ -57,47 +61,22 @@ class _HomePageState extends State<HomePage> with WidgetsBindingObserver {
   Color _textColor = Color(0xff003ABA);
   bool tapped =false;
   int time;
-  int dropdownInt;
-  int timeLeft = 0;
+
+  int countHours = 0;
+  int countMinutes = 0;
+  String ampm = "am";
   @override
   Widget build(BuildContext context) {
-    switch(dropdownValue){
-      case "One":
-        dropdownInt = 1;
-        break;
-      case "Two":
-        dropdownInt = 2;
-        break;
-      case "Three":
-        dropdownInt = 3;
-        break;
-      case "Four":
-        dropdownInt = 4;
-        break;
-      case "Five":
-        dropdownInt = 5;
-        break;
-      case "Six":
-        dropdownInt = 6;
-        break;
-      case "Sevem":
-        dropdownInt = 7;
-        break;
-      case "Eight":
-        dropdownInt = 8;
-        break;
-      case "Nine":
-        dropdownInt = 9;
-        break;
-      case "Ten":
-        dropdownInt = 10;
-        break;
-      case "Eleven":
-        dropdownInt = 11;
-        break;
-      case "Twelve":
-        dropdownInt = 12;
-        break;
+    if (DateTime.now().hour > 12){
+      ampm = "pm";
+    }else {
+      ampm = "am";
+    }
+    countHours = (23 - DateTime.now().hour) + dropdownInt;
+    countMinutes = (60 - DateTime.now().minute);
+    if (countMinutes == 60){
+      countMinutes -= 60;
+      countHours += 1;
     }
     stop1.start();
     if (stop1.elapsedMilliseconds >= 10000) {
@@ -121,7 +100,7 @@ class _HomePageState extends State<HomePage> with WidgetsBindingObserver {
                     fontSize: 101),
                 children: <TextSpan>[
               TextSpan(
-                  text: "am",
+                  text: ampm,
                   style:
                       TextStyle(fontWeight: FontWeight.normal, fontSize: 42.0)),
             ])),
@@ -139,7 +118,7 @@ class _HomePageState extends State<HomePage> with WidgetsBindingObserver {
               width: 350,
               alignment: Alignment.topCenter,
               child: Text(
-                "2 Hours 0 minutes",
+                countHours.toString() + " Hours " + countMinutes.toString() + " Minutes",
                 style: TextStyle(
                     fontSize: 30,
                     fontWeight: FontWeight.bold,
@@ -254,40 +233,16 @@ class _HomePageState extends State<HomePage> with WidgetsBindingObserver {
       });
     }
   }
-
   var hours = 0;
   var minutes = 0;
   var seconds = 0;
-  var milleseconds = 0;
-  var addmilli = 0;
-  bool startup = false;
   String saa() {
-    
-    void Save() async{
-      final prefs = await SharedPreferences.getInstance();
-      prefs.setInt('milli', milleseconds);
-    }
-
-    void Load() async{
-      final prefs = await SharedPreferences.getInstance();
-      addmilli = prefs.getInt('milli');
-    }
-
-    void awaitsave() async{
-      await Save();
-    }
-    awaitsave();
-    
-    if (!startup){
-      Load();
-      startup = !startup;
-    }else {
-      milleseconds = addmilli + stop.elapsedMilliseconds;
-    }
+    MyApp.saveload();
 
     seconds = (milleseconds / 1000).toInt();
     minutes = (seconds / 60).toInt();
     hours = (minutes / 60).toInt();
+    print(milleseconds);
     while (seconds >= 60) {
       seconds -= 60;
     }
