@@ -4,7 +4,7 @@ import 'package:sleep/main.dart';
 import 'package:sleep/pages/aboutPage.dart';
 import 'homePage.dart';
 
-String dropdownValue;
+String dropdownValue = "Seven";
 bool isStart = false;
 final textFieldController = TextEditingController();
 String startText = "START";
@@ -23,7 +23,7 @@ class _StartPageState extends State<StartPage> {
 
   @override
   void dispose() {}
-  String name = "Name";
+  
   @override
   Widget build(BuildContext context) {
     switch (dropdownValue) {
