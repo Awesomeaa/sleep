@@ -42,7 +42,7 @@ class _HomePageState extends State<HomePage> with WidgetsBindingObserver {
     // TODO: implement didChangeAppLifecycleState
     switch (state) {
       case AppLifecycleState.paused:
-        if(isNone == false){
+        if(isStart){
           stop.start();
         }
         break;
@@ -73,57 +73,42 @@ class _HomePageState extends State<HomePage> with WidgetsBindingObserver {
     switch(dropdownValue){
       case "One":
         dropdownInt = 1;
-        isNone = false;
         break;
       case "Two":
         dropdownInt = 2;
-        isNone = false;
         break;
         case "Three":
         dropdownInt = 3;
-        isNone = false;
         break;
         case "Four":
         dropdownInt = 4;
-        isNone = false;
         break;
         case "Five":
         dropdownInt = 5;
-        isNone = false;
         break;
         case "Six":
         dropdownInt = 6;
-        isNone = false;
         break;
         case "Seven":
         dropdownInt = 7;
-        isNone = false;
         break;
         case "Eight":
         dropdownInt = 8;
-        isNone = false;
         break;
         case "Nine":
         dropdownInt = 9;
-        isNone = false;
         break;
         case "Ten":
         dropdownInt = 10;
-        isNone = false;
         break;
         case "Eleven":
         dropdownInt = 11;
-        isNone = false;
         break;
         case "Twelve":
         dropdownInt = 12;
-        isNone = false;
-        break;
-        case "None":
-        isNone = true;
         break;
     }
-    if(isNone == false)
+    if(isStart)
     {
     if (DateTime.now().hour > 12){
       ampm = "pm";
