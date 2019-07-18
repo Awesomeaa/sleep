@@ -1,6 +1,7 @@
 import "package:flutter/material.dart";
 import 'dart:async';
 import 'package:sleep/main.dart';
+import 'package:sleep/pages/aboutPage.dart';
 import 'homePage.dart';
 
 String dropdownValue;
@@ -248,9 +249,9 @@ class _StartPageState extends State<StartPage> {
                       onTap: () {
                         isStart = !isStart;
                         if (startText == "STOP") {
-                          setState(() {
-                            startText = "START";
-                          });
+                            setState(() {
+                              startText = "START";
+                            });
                         } else {
                           setState(() {
                             startText = "STOP";
@@ -261,7 +262,9 @@ class _StartPageState extends State<StartPage> {
                   ],
                 ),
               ),
-              Container()
+              Container(
+                
+              )
             ],
           ),
         ),
@@ -297,4 +300,29 @@ Future<void> _ackAlert(BuildContext context) {
       );
     },
   );
+}
+class SlideRightRoute extends PageRouteBuilder {
+  final Widget page;
+  SlideRightRoute({this.page})
+      : super(
+          pageBuilder: (
+            BuildContext context,
+            Animation<double> animation,
+            Animation<double> secondaryAnimation,
+          ) =>
+              page,
+          transitionsBuilder: (
+            BuildContext context,
+            Animation<double> animation,
+            Animation<double> secondaryAnimation,
+            Widget child,
+          ) =>
+              SlideTransition(
+                position: Tween<Offset>(
+                  begin: const Offset(-1, 0),
+                  end: Offset.zero,
+                ).animate(animation),
+                child: child,
+              ),
+        );
 }
