@@ -42,7 +42,9 @@ class _HomePageState extends State<HomePage> with WidgetsBindingObserver {
     // TODO: implement didChangeAppLifecycleState
     switch (state) {
       case AppLifecycleState.paused:
-        stop.start();
+        if(isNone == false){
+          stop.start();
+        }
         break;
       case AppLifecycleState.resumed:
         stop.stop();
@@ -61,12 +63,68 @@ class _HomePageState extends State<HomePage> with WidgetsBindingObserver {
   Color _textColor = Color(0xff003ABA);
   bool tapped =false;
   int time;
-
   int countHours = 0;
   int countMinutes = 0;
   String ampm = "am";
+  int dropdownInt;
+  int timeLeft = 0;
   @override
   Widget build(BuildContext context) {
+    switch(dropdownValue){
+      case "One":
+        dropdownInt = 1;
+        isNone = false;
+        break;
+      case "Two":
+        dropdownInt = 2;
+        isNone = false;
+        break;
+        case "Three":
+        dropdownInt = 3;
+        isNone = false;
+        break;
+        case "Four":
+        dropdownInt = 4;
+        isNone = false;
+        break;
+        case "Five":
+        dropdownInt = 5;
+        isNone = false;
+        break;
+        case "Six":
+        dropdownInt = 6;
+        isNone = false;
+        break;
+        case "Seven":
+        dropdownInt = 7;
+        isNone = false;
+        break;
+        case "Eight":
+        dropdownInt = 8;
+        isNone = false;
+        break;
+        case "Nine":
+        dropdownInt = 9;
+        isNone = false;
+        break;
+        case "Ten":
+        dropdownInt = 10;
+        isNone = false;
+        break;
+        case "Eleven":
+        dropdownInt = 11;
+        isNone = false;
+        break;
+        case "Twelve":
+        dropdownInt = 12;
+        isNone = false;
+        break;
+        case "None":
+        isNone = true;
+        break;
+    }
+    if(isNone == false)
+    {
     if (DateTime.now().hour > 12){
       ampm = "pm";
     }else {
@@ -77,6 +135,7 @@ class _HomePageState extends State<HomePage> with WidgetsBindingObserver {
     if (countMinutes == 60){
       countMinutes -= 60;
       countHours += 1;
+    }
     }
     stop1.start();
     if (stop1.elapsedMilliseconds >= 10000) {
@@ -155,7 +214,15 @@ class _HomePageState extends State<HomePage> with WidgetsBindingObserver {
           ],
         ),
       ),
-    ]);
+    Container(
+      margin: EdgeInsets.only(top: 50),
+            width: 300,
+            height: 300,
+        child: FlareActor(
+          "assets/Space Ship.flr",
+          animation: "Untitled",
+        )
+      ),]);
     var children = <Widget>[hi];
     if (boolt) {
       children.clear();

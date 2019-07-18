@@ -3,6 +3,7 @@ import 'dart:async';
 import 'package:sleep/main.dart';
 import 'homePage.dart';
 
+bool isNone = false;
 String dropdownValue;
 class StartPage extends StatefulWidget {
   _StartPageState createState() => _StartPageState();
@@ -20,45 +21,67 @@ class _StartPageState extends State<StartPage> {
     textFieldController.dispose();
   }
   final textFieldController = TextEditingController();
+  String name = "";
   @override
   Widget build(BuildContext context) {
     switch(dropdownValue){
       case "One":
         dropdownInt = 1;
+        isNone = false;
         break;
       case "Two":
         dropdownInt = 2;
+        isNone = false;
         break;
         case "Three":
         dropdownInt = 3;
+        isNone = false;
         break;
         case "Four":
         dropdownInt = 4;
+        isNone = false;
         break;
         case "Five":
         dropdownInt = 5;
+        isNone = false;
         break;
         case "Six":
         dropdownInt = 6;
+        isNone = false;
         break;
         case "Seven":
         dropdownInt = 7;
+        isNone = false;
         break;
         case "Eight":
         dropdownInt = 8;
+        isNone = false;
         break;
         case "Nine":
         dropdownInt = 9;
+        isNone = false;
         break;
         case "Ten":
         dropdownInt = 10;
+        isNone = false;
         break;
         case "Eleven":
         dropdownInt = 11;
+        isNone = false;
         break;
         case "Twelve":
         dropdownInt = 12;
+        isNone = false;
         break;
+        case "None":
+        isNone = true;
+        break;
+    }
+    String hi = dropdownInt.toString() + ":00";
+    String marker = "am";
+    if(isNone){
+      hi = "None";
+      marker = " ";
     }
     MyApp.saveload();
     if (textFieldController.text != ''){
@@ -80,11 +103,10 @@ class _StartPageState extends State<StartPage> {
                   begin: Alignment.bottomRight,
                   end: Alignment.topLeft,
                   stops: [0.3, .9],
-                  colors: [Color(0xff003593), Color(0xff003ABA)])*/),
-          child: Column(
-            children: <Widget>[
-              Container(
+                  colors: [Color(0xff003593), Color(0xff003ABA)])
+                  Container(
                 padding: EdgeInsets.all(20),
+
                 child: TextField(
                   controller: textFieldController,
                   
@@ -92,7 +114,10 @@ class _StartPageState extends State<StartPage> {
     border: InputBorder.none,
   ),
 ),
-              ),
+              ),*/
+                  ),
+          child: Column(
+            children: <Widget>[
               Container(   
                 width: 375,
                 margin: EdgeInsets.only(top: height/17.2),
@@ -121,8 +146,8 @@ class _StartPageState extends State<StartPage> {
                     Container(alignment: Alignment.center, padding: EdgeInsets.only(bottom: height/50),child: Row(
                       mainAxisAlignment: MainAxisAlignment.center,
                       children: <Widget>[
-                        Text(dropdownInt.toString() + ":00", style: TextStyle(fontWeight: FontWeight.bold, fontSize: 70)),
-                        Container(alignment: Alignment.bottomLeft, child: Text("am", style: TextStyle(fontWeight: FontWeight.bold, fontSize: 28),))
+                        Text(hi, style: TextStyle(fontWeight: FontWeight.bold, fontSize: 70)),
+                        Container(alignment: Alignment.bottomLeft, child: Text(marker, style: TextStyle(fontWeight: FontWeight.bold, fontSize: 28),))
                       ],
                     ), margin: EdgeInsets.only(left: width/20),)
                   ],
@@ -149,7 +174,7 @@ class _StartPageState extends State<StartPage> {
             dropdownValue = newValue;
           });
         },
-        items: <String>['One', 'Two', 'Three', 'Four', 'Five', 'Six', 'Seven', 'Eight', 'Nine', 'Ten', 'Eleven', 'Twelve']
+        items: <String>['One', 'Two', 'Three', 'Four', 'Five', 'Six', 'Seven', 'Eight', 'Nine', 'Ten', 'Eleven', 'Twelve', 'None']
           .map<DropdownMenuItem<String>>((String value) {
             return DropdownMenuItem<String>(
               value: value,
