@@ -25,6 +25,7 @@ class _StartPageState extends State<StartPage> {
 
   @override
   void dispose() {
+
     super.dispose();
   }
   @override
@@ -74,7 +75,6 @@ class _StartPageState extends State<StartPage> {
       name = textFieldController.text;
       nameBool = true;
     }
-    print(name);
     //print(textFieldController.text);
 
     var height = MediaQuery.of(context).size.height;
@@ -129,9 +129,11 @@ class _StartPageState extends State<StartPage> {
                             style: TextStyle(
                                 fontWeight: FontWeight.bold, fontSize: 50.4)),
                         onTap: () {
+                          if(this.mounted){
                           setState(() {
                             _inputName(context);
                           });
+                          }
                         },
                       ),
                       margin: EdgeInsets.only(left: width / 20),
@@ -203,9 +205,11 @@ class _StartPageState extends State<StartPage> {
                           DropdownButton<String>(
                             value: dropdownValue,
                             onChanged: (String newValue) {
+                              if(this.mounted){
                               setState(() {
                                 dropdownValue = newValue;
                               });
+                              } 
                             },
                             items: <String>[
                               'One',
@@ -240,9 +244,11 @@ class _StartPageState extends State<StartPage> {
                     ),
                     GestureDetector(
                         onTap: () {
+                          if(this.mounted){
                           setState(() {
                             _help(context);
                           });
+                          }
                         },
                         child: Container(
                             padding: EdgeInsets.only(top: height * .075),
@@ -306,15 +312,19 @@ class _StartPageState extends State<StartPage> {
                         onTap: () {
                           isStart = !isStart;
                           if (startText == "STOP") {
+                            if(this.mounted){
                             setState(() {
                               swipeUp = false;
                               startText = "START";
                             });
+                            }
                           } else {
+                            if(this.mounted){
                             setState(() {
                               swipeUp = true;
                               startText = "STOP";
                             });
+                            }
                           }
                         },
                       ),
@@ -365,7 +375,9 @@ class _StartPageState extends State<StartPage> {
   }
 
   void stateSet() {
+    if(this.mounted){
     setState(() {});
+    }
   }
 }
 

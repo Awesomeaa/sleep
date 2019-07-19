@@ -222,10 +222,8 @@ class _HomePageState extends State<HomePage> with WidgetsBindingObserver {
             )),
       );
     } else {
-      print(tapped);
       if (tapped) {
         children.clear();
-        print(children);
         children.add(Container(
            color: Color(0xff003ABA),
             width: width,
@@ -240,7 +238,6 @@ class _HomePageState extends State<HomePage> with WidgetsBindingObserver {
       }
       if(children.isNotEmpty && tapped == false){
         children.clear();
-        print("YAY");
         children.add(hi);
       }
       tapped = false;
@@ -250,7 +247,6 @@ class _HomePageState extends State<HomePage> with WidgetsBindingObserver {
           if (boolt == true) {
             tapped = true;
           }
-          print("tapped");
           boolt = false;
           stop1.reset();
         },
@@ -293,7 +289,6 @@ class _HomePageState extends State<HomePage> with WidgetsBindingObserver {
     seconds = (milleseconds / 1000).toInt();
     minutes = (seconds / 60).toInt();
     hours = (minutes / 60).toInt();
-    print(milleseconds);
     while (seconds >= 60) {
       seconds -= 60;
     }
