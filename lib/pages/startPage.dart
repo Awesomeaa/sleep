@@ -8,6 +8,8 @@ String dropdownValue = "Seven";
 bool isStart = false;
 final textFieldController = TextEditingController();
 String startText = "START";
+bool swipeUp = false;
+String name = "name";
 
 class StartPage extends StatefulWidget {
   _StartPageState createState() => _StartPageState();
@@ -22,8 +24,9 @@ class _StartPageState extends State<StartPage> {
   }
 
   @override
-  void dispose() {}
-  
+  void dispose() {
+    super.dispose();
+  }
   @override
   Widget build(BuildContext context) {
     switch (dropdownValue) {
@@ -127,7 +130,7 @@ class _StartPageState extends State<StartPage> {
                                 fontWeight: FontWeight.bold, fontSize: 50.4)),
                         onTap: () {
                           setState(() {
-                            _ackAlert(context);
+                            _inputName(context);
                           });
                         },
                       ),
@@ -176,24 +179,23 @@ class _StartPageState extends State<StartPage> {
                 ),
               ),
               Container(
-                alignment: Alignment.center,
+                alignment: Alignment.topCenter,
                 width: 375,
                 margin: EdgeInsets.only(top: height / 55.2, bottom: 0),
-                padding: EdgeInsets.only(top: height * .15),
                 decoration: BoxDecoration(
                     color: Colors.white,
                     borderRadius: BorderRadius.circular(25)),
                 child: Column(
                   children: <Widget>[
                     Container(
-                        alignment: Alignment.center,
+                        alignment: Alignment.topCenter,
                         child: Text(
                           "When are you waking up?",
                           style: TextStyle(
                               fontWeight: FontWeight.w300, fontSize: 16.8),
                         )),
                     Container(
-                      alignment: Alignment.center,
+                      alignment: Alignment.topCenter,
                       padding: EdgeInsets.only(bottom: height / 50),
                       child: Row(
                         mainAxisAlignment: MainAxisAlignment.center,
@@ -237,34 +239,124 @@ class _StartPageState extends State<StartPage> {
                       margin: EdgeInsets.only(left: width / 20),
                     ),
                     GestureDetector(
-                      child: Container(
-                        width: 100,
-                        height: 50,
-                        decoration: BoxDecoration(
-                            borderRadius: BorderRadius.circular(50),
-                            color: Color(0xff003ABA)),
-                        child: Container(alignment: Alignment.center, child: Text(startText, textAlign: TextAlign.center, style: TextStyle(color: Colors.white),)),
-                        padding: EdgeInsets.only(bottom: 0),
-                      ),
-                      onTap: () {
-                        isStart = !isStart;
-                        if (startText == "STOP") {
+                        onTap: () {
+                          setState(() {
+                            _help(context);
+                          });
+                        },
+                        child: Container(
+                            padding: EdgeInsets.only(top: height * .075),
+                            child: Column(
+                              children: <Widget>[
+                                Container(
+                                  margin: EdgeInsets.only(
+                                      left: width / 3.5, bottom: height / 50),
+                                  alignment: Alignment.center,
+                                  child: Row(
+                                    children: <Widget>[
+                                      Container(
+                                        alignment: Alignment.center,
+                                        child: Text(
+                                          "How it works: ",
+                                          style: TextStyle(
+                                              fontWeight: FontWeight.w300,
+                                              fontSize: 16.8),
+                                        ),
+                                      ),
+                                      Container(
+                                        alignment: Alignment.center,
+                                        width: 50,
+                                        height: 25,
+                                        decoration: BoxDecoration(
+                                            borderRadius:
+                                                BorderRadius.circular(10),
+                                            color: Colors.grey),
+                                        child: Container(
+                                            alignment: Alignment.center,
+                                            child: Text(
+                                              "Help?",
+                                              textAlign: TextAlign.center,
+                                              style: TextStyle(
+                                                  color: Colors.white),
+                                            )),
+                                      )
+                                    ],
+                                  ),
+                                ),
+                              ],
+                            ))),
+                    Container(
+                      padding: EdgeInsets.only(top: height * .075),
+                      child: GestureDetector(
+                        child: Container(
+                          width: 100,
+                          height: 50,
+                          decoration: BoxDecoration(
+                              borderRadius: BorderRadius.circular(50),
+                              color: Color(0xff003ABA)),
+                          child: Container(
+                              alignment: Alignment.center,
+                              child: Text(
+                                startText,
+                                textAlign: TextAlign.center,
+                                style: TextStyle(color: Colors.white),
+                              )),
+                          padding: EdgeInsets.only(bottom: 0),
+                        ),
+                        onTap: () {
+                          isStart = !isStart;
+                          if (startText == "STOP") {
                             setState(() {
+                              swipeUp = false;
                               startText = "START";
                             });
-                        } else {
-                          setState(() {
-                            startText = "STOP";
-                          });
-                        }
-                      },
+                          } else {
+                            setState(() {
+                              swipeUp = true;
+                              startText = "STOP";
+                            });
+                          }
+                        },
+                      ),
                     ),
+                    Visibility(
+                      visible: swipeUp,
+                      child: Container(
+                        child: Row(
+                          mainAxisAlignment: MainAxisAlignment.center,
+                          children: <Widget>[
+                            Container(
+                              decoration: BoxDecoration(
+                          color: Color(0xff003ABA),
+                        ),
+                              padding: EdgeInsets.only(top: 5, left: 5,bottom: 5),
+                              alignment: Alignment.bottomCenter,
+                              margin: EdgeInsets.only(top: 20),
+                              child: Text(
+                                "SWIPE UP",
+                                style: TextStyle(color: Colors.white),
+                              ),
+                            ),
+                            Container(
+                              decoration: BoxDecoration(
+                          color: Color(0xff003ABA),
+                        ),
+                              padding: EdgeInsets.all(1.5),
+                              alignment: Alignment.bottomCenter,
+                              margin: EdgeInsets.only(top: 20),
+                              child: Icon(
+                                Icons.arrow_upward,
+                                color: Colors.white,
+                              ),
+                            ),
+                          ],
+                        ),
+                      ),
+                    )
                   ],
                 ),
               ),
-              Container(
-                
-              )
+              Container()
             ],
           ),
         ),
@@ -277,7 +369,7 @@ class _StartPageState extends State<StartPage> {
   }
 }
 
-Future<void> _ackAlert(BuildContext context) {
+Future<void> _inputName(BuildContext context) {
   return showDialog<void>(
     context: context,
     builder: (BuildContext context) {
@@ -286,8 +378,8 @@ Future<void> _ackAlert(BuildContext context) {
         content: TextField(
           controller: textFieldController,
           decoration: InputDecoration(
-            border: InputBorder.none,
-          ),
+              border: OutlineInputBorder(
+                  borderSide: BorderSide(color: Colors.grey))),
         ),
         actions: <Widget>[
           FlatButton(
@@ -301,28 +393,24 @@ Future<void> _ackAlert(BuildContext context) {
     },
   );
 }
-class SlideRightRoute extends PageRouteBuilder {
-  final Widget page;
-  SlideRightRoute({this.page})
-      : super(
-          pageBuilder: (
-            BuildContext context,
-            Animation<double> animation,
-            Animation<double> secondaryAnimation,
-          ) =>
-              page,
-          transitionsBuilder: (
-            BuildContext context,
-            Animation<double> animation,
-            Animation<double> secondaryAnimation,
-            Widget child,
-          ) =>
-              SlideTransition(
-                position: Tween<Offset>(
-                  begin: const Offset(-1, 0),
-                  end: Offset.zero,
-                ).animate(animation),
-                child: child,
-              ),
-        );
+
+Future<void> _help(BuildContext context) {
+  return showDialog<void>(
+    context: context,
+    builder: (BuildContext context) {
+      return AlertDialog(
+        title: Text('Help'),
+        content: Text(
+            "Once you have pressed the start button, your phone will go to sleep and any time spent on your phone before your scheduled wake up time will be recorded. Please put your phone on do not disturb and please do not turn off your phone.(leave it on home page of app). By leaving it on homepage the screen will slowly go black to give the apperance that it has fallen asleep so that your phone will not overheat or lose much battery overnight."),
+        actions: <Widget>[
+          FlatButton(
+            child: Text('Ok'),
+            onPressed: () {
+              Navigator.of(context).pop();
+            },
+          ),
+        ],
+      );
+    },
+  );
 }

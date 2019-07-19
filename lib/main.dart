@@ -10,12 +10,10 @@ void main() => runApp(MyApp());
 int milleseconds = 0;
 int addmilli = 0;
 var startup = false;
-String name = "name";
 bool nameSave = true;
 bool nameBool = true;
 int countMilli = 0;
 int addCountMilli = 0;
-
 class MyApp extends StatelessWidget {
   // This widget is the root of your application.
   @override

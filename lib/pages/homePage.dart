@@ -7,11 +7,11 @@ import "package:flare_flutter/flare_actor.dart";
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:sleep/pages/startPage.dart';
 import 'package:sleep/main.dart';
+import 'package:screen/screen.dart';
 
 Stopwatch stop = new Stopwatch();
 Stopwatch stop1 = new Stopwatch();
 Stopwatch sleepTime = new Stopwatch();
-
 int dropdownInt = 7;
 
 class HomePage extends StatefulWidget {
@@ -58,7 +58,6 @@ class _HomePageState extends State<HomePage> with WidgetsBindingObserver {
         break;
     }
   }
-  int ii = 0;
   bool boolt = false;
   Color _textColor = Color(0xff003ABA);
   bool tapped =false;
@@ -70,6 +69,7 @@ class _HomePageState extends State<HomePage> with WidgetsBindingObserver {
   int timeLeft = 0;
   @override
   Widget build(BuildContext context) {
+    Screen.keepOn(true);
     switch(dropdownValue){
       case "One":
         dropdownInt = 1;
@@ -132,7 +132,7 @@ class _HomePageState extends State<HomePage> with WidgetsBindingObserver {
       Container(
         child: Text("The time is",
             style: TextStyle(fontSize: 20, color: Colors.white)),
-        padding: EdgeInsets.only(top: height / 22.4),
+        padding: EdgeInsets.only(top: height / 15.4),
       ),
       Container(
         child: RichText(
