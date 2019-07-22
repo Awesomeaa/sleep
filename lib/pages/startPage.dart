@@ -9,9 +9,10 @@ bool isStart = false;
 final textFieldController = TextEditingController();
 String startText = "START";
 bool swipeUp = false;
-String name = "name";
+String name;
 
 class StartPage extends StatefulWidget {
+  
   _StartPageState createState() => _StartPageState();
 }
 
@@ -28,8 +29,13 @@ class _StartPageState extends State<StartPage> {
 
     super.dispose();
   }
+  
   @override
   Widget build(BuildContext context) {
+    if(name == null || name == "")
+    {
+      name = "Name";
+    }
     switch (dropdownValue) {
       case "One":
         dropdownInt = 1;
@@ -71,10 +77,10 @@ class _StartPageState extends State<StartPage> {
     String hi = dropdownInt.toString() + ":00";
     String marker = "am";
     MyApp.saveload();
-    if (textFieldController.text != '') {
+      if (textFieldController.text != '') {
       name = textFieldController.text;
       nameBool = true;
-    }
+      }
     //print(textFieldController.text);
 
     var height = MediaQuery.of(context).size.height;

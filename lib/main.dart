@@ -55,8 +55,10 @@ class MyApp extends StatelessWidget {
   }
 
   Widget build(BuildContext context) {
-    
-
+    if(name == null || name == "")
+    {
+      name = "Name";
+    }
     return MaterialApp(
       debugShowCheckedModeBanner: false,
       home: PageView(

@@ -13,19 +13,28 @@ Stopwatch stop = new Stopwatch();
 Stopwatch stop1 = new Stopwatch();
 Stopwatch sleepTime = new Stopwatch();
 int dropdownInt = 7;
+int hoursSlept;
+int minutesSlept;
+var hours = 0;
+  var minutes = 0;
+  var seconds = 0;
 
 class HomePage extends StatefulWidget {
   _HomePageState createState() => _HomePageState();
+  
 }
-
 class _HomePageState extends State<HomePage> with WidgetsBindingObserver {
+  
   String _timeString;
   @override
   void initState() {
+    minutesSlept = countMinutes;
+    hoursSlept = countHours;
     super.initState();
     WidgetsBinding.instance.addObserver(this);
     _timeString = _formatDateTime(DateTime.now());
     Timer.periodic(Duration(seconds: 1), (Timer t) => _getTime());
+    first = true;
   }
 
   @override
@@ -35,6 +44,7 @@ class _HomePageState extends State<HomePage> with WidgetsBindingObserver {
     WidgetsBinding.instance.removeObserver(this);
     stop1.stop();
     stop.stop();
+    first = false;
   }
 
   @override
@@ -42,14 +52,16 @@ class _HomePageState extends State<HomePage> with WidgetsBindingObserver {
     // TODO: implement didChangeAppLifecycleState
     switch (state) {
       case AppLifecycleState.paused:
-        if(isStart){
+        if (isStart) {
           stop.start();
         }
         break;
       case AppLifecycleState.resumed:
         stop.stop();
         if (this.mounted) {
-          setState(() {});
+          setState(() {
+            _sleepDone(context);
+          });
         }
         break;
       case AppLifecycleState.inactive:
@@ -58,69 +70,76 @@ class _HomePageState extends State<HomePage> with WidgetsBindingObserver {
         break;
     }
   }
+
   bool boolt = false;
   Color _textColor = Color(0xff003ABA);
-  bool tapped =false;
+  bool tapped = false;
   int time;
   int countHours = 0;
   int countMinutes = 0;
   String ampm = "am";
   int dropdownInt;
   int timeLeft = 0;
+  bool first;
+  
   @override
   Widget build(BuildContext context) {
     Screen.keepOn(true);
-    switch(dropdownValue){
+    switch (dropdownValue) {
       case "One":
         dropdownInt = 1;
         break;
       case "Two":
         dropdownInt = 2;
         break;
-        case "Three":
+      case "Three":
         dropdownInt = 3;
         break;
-        case "Four":
+      case "Four":
         dropdownInt = 4;
         break;
-        case "Five":
+      case "Five":
         dropdownInt = 5;
         break;
-        case "Six":
+      case "Six":
         dropdownInt = 6;
         break;
-        case "Seven":
+      case "Seven":
         dropdownInt = 7;
         break;
-        case "Eight":
+      case "Eight":
         dropdownInt = 8;
         break;
-        case "Nine":
+      case "Nine":
         dropdownInt = 9;
         break;
-        case "Ten":
+      case "Ten":
         dropdownInt = 10;
         break;
-        case "Eleven":
+      case "Eleven":
         dropdownInt = 11;
         break;
-        case "Twelve":
+      case "Twelve":
         dropdownInt = 12;
         break;
     }
-    if(isStart)
-    {
-    if (DateTime.now().hour > 12){
-      ampm = "pm";
-    }else {
-      ampm = "am";
-    }
-    countHours = (23 - DateTime.now().hour) + dropdownInt;
-    countMinutes = (60 - DateTime.now().minute);
-    if (countMinutes == 60){
-      countMinutes -= 60;
-      countHours += 1;
-    }
+    if (isStart) {
+      if (DateTime.now().hour > 12) {
+        ampm = "pm";
+      } else {
+        ampm = "am";
+      }
+      countHours = (23 - DateTime.now().hour) + dropdownInt;
+      countMinutes = (60 - DateTime.now().minute);
+      if (countMinutes == 60) {
+        countMinutes -= 60;
+        countHours += 1;
+      }
+      if(first){
+        minutesSlept = countMinutes;
+        hoursSlept = countHours;
+        first = false;
+      }
     }
     stop1.start();
     if (stop1.elapsedMilliseconds >= 10000) {
@@ -162,7 +181,10 @@ class _HomePageState extends State<HomePage> with WidgetsBindingObserver {
               width: 350,
               alignment: Alignment.topCenter,
               child: Text(
-                countHours.toString() + " Hours " + countMinutes.toString() + " Minutes",
+                countHours.toString() +
+                    " Hours " +
+                    countMinutes.toString() +
+                    " Minutes",
                 style: TextStyle(
                     fontSize: 30,
                     fontWeight: FontWeight.bold,
@@ -199,14 +221,14 @@ class _HomePageState extends State<HomePage> with WidgetsBindingObserver {
           ],
         ),
       ),
-    Container(
-            width: 400,
-            height: 350,
-        child: FlareActor(
-          "assets/Space Ship.flr",
-          animation: "Space Ship",
-        )
-      ),]);
+      Container(
+          width: 400,
+          height: 350,
+          child: FlareActor(
+            "assets/Space Ship.flr",
+            animation: "Space Ship",
+          )),
+    ]);
     var children = <Widget>[hi];
     if (boolt) {
       children.clear();
@@ -225,7 +247,7 @@ class _HomePageState extends State<HomePage> with WidgetsBindingObserver {
       if (tapped) {
         children.clear();
         children.add(Container(
-           color: Color(0xff003ABA),
+            color: Color(0xff003ABA),
             width: width,
             height: height,
             child: FlareActor(
@@ -236,7 +258,7 @@ class _HomePageState extends State<HomePage> with WidgetsBindingObserver {
             )));
         stop1.reset();
       }
-      if(children.isNotEmpty && tapped == false){
+      if (children.isNotEmpty && tapped == false) {
         children.clear();
         children.add(hi);
       }
@@ -280,9 +302,7 @@ class _HomePageState extends State<HomePage> with WidgetsBindingObserver {
       });
     }
   }
-  var hours = 0;
-  var minutes = 0;
-  var seconds = 0;
+
   String saa() {
     MyApp.saveload();
 
@@ -306,9 +326,106 @@ class _HomePageState extends State<HomePage> with WidgetsBindingObserver {
         " Minutes \n" +
         seconds.toString() +
         " Seconds";
+        
   }
+  String saa1() {
+    MyApp.saveload();
+
+    seconds = (milleseconds / 1000).toInt();
+    minutes = (seconds / 60).toInt();
+    hours = (minutes / 60).toInt();
+    while (seconds >= 60) {
+      seconds -= 60;
+    }
+    while (minutes >= 60) {
+      minutes -= 60;
+    }
+    if (milleseconds > 0) {
+      _textColor = Colors.red;
+    } else {
+      _textColor = Color(0xff003ABA);
+    }
+    return hours.toString() +
+        " Hours \n" +
+        minutes.toString() +
+        " Minutes \n" +
+        seconds.toString() +
+        " Seconds";
+        
+  }
+Future<void> _sleepDone(BuildContext context) {
+   MyApp.saveload();
+  String timeSlept = "Night 0\n\n"+ hoursSlept.toString() + " hours\n" +minutesSlept.toString() + " minutes\nslept\n";
+  return showDialog<void>(
+    context: context,
+    builder: (BuildContext context) {
+      return AlertDialog(
+        title: Text('Sleep Complete'),
+        content: Container(
+            height: 200,
+            child: Row(
+              mainAxisAlignment: MainAxisAlignment.start,
+              children: <Widget>[
+                Column(
+                  mainAxisAlignment: MainAxisAlignment.start,
+                  children: <Widget>[
+                    Container(
+                        margin: EdgeInsets.zero,
+                        child: Text(
+                          "Good \nmorning,",
+                          style: TextStyle(
+                              fontSize: 33.6, fontWeight: FontWeight.w300),
+                          textAlign: TextAlign.left,
+                        )),
+                    Container(
+                        margin: EdgeInsets.zero,
+                        child: Text(
+                          name,
+                          style: TextStyle(
+                              fontSize: 50.4, fontWeight: FontWeight.bold),
+                        ))
+                  ],
+                ),
+                Column(
+                  mainAxisAlignment: MainAxisAlignment.end,
+                  children: <Widget>[
+                    Container(
+                      padding: EdgeInsets.only(left: 40),
+                        child: Text(timeSlept,
+                            textAlign: TextAlign.right,
+                            style: TextStyle(
+                                fontSize: 14, color: Colors.blueAccent))),
+                    Container(
+                      padding: EdgeInsets.only(left: 40),
+                      child: Text(hours.toString() + " hours\n" + minutes.toString() + " minutes\non phone",
+                          textAlign: TextAlign.right,
+                          style: TextStyle(fontSize: 14, color: Colors.redAccent)),
+                    )
+                  ],
+                ),
+              ],
+            )),
+        actions: <Widget>[
+          FlatButton(
+            child: Text('Ok'),
+            onPressed: () {
+              Navigator.of(context).pop();
+            },
+          ),
+          FlatButton(
+            child: Text('Ok'),
+            onPressed: () {
+              Navigator.of(context).pop();
+            },
+          ),
+        ],
+      );
+    },
+  );
+}
 
   String _formatDateTime(DateTime dateTime) {
     return DateFormat('hh:mm').format(dateTime);
   }
 }
+
