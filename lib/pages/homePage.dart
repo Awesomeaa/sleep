@@ -405,13 +405,7 @@ Future<void> _sleepDone(BuildContext context) {
                 ),
               ],
             )),
-        actions: <Widget>[
-          FlatButton(
-            child: Text('Ok'),
-            onPressed: () {
-              Navigator.of(context).pop();
-            },
-          ),
+        actions: <Widget>[ 
           FlatButton(
             child: Text('Ok'),
             onPressed: () {
