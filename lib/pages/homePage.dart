@@ -15,6 +15,7 @@ Stopwatch sleepTime = new Stopwatch();
 int dropdownInt = 7;
 int hoursSlept;
 int minutesSlept;
+int nightSave = 1;
 var hours = 0;
   var minutes = 0;
   var seconds = 0;
@@ -24,16 +25,30 @@ class HomePage extends StatefulWidget {
   
 }
 class _HomePageState extends State<HomePage> with WidgetsBindingObserver {
-  
+  void _ooga(){
+  setState(() {
+        if(isStart){
+          if(countMinutes == 0 && countHours == 0){//countMinutes == 42 && countHours == 0){
+            isStart = false;
+            nightSave += 1;
+            MyApp.saveload();
+            _sleepDone(context);
+          }
+    }
+    });
+}
   String _timeString;
   @override
   void initState() {
     minutesSlept = countMinutes;
     hoursSlept = countHours;
+    
+    
     super.initState();
     WidgetsBinding.instance.addObserver(this);
     _timeString = _formatDateTime(DateTime.now());
     Timer.periodic(Duration(seconds: 1), (Timer t) => _getTime());
+    Timer.periodic(Duration(seconds: 5), (Timer t) => _ooga());
     first = true;
   }
 
@@ -58,11 +73,6 @@ class _HomePageState extends State<HomePage> with WidgetsBindingObserver {
         break;
       case AppLifecycleState.resumed:
         stop.stop();
-        if (this.mounted) {
-          setState(() {
-            _sleepDone(context);
-          });
-        }
         break;
       case AppLifecycleState.inactive:
         break;
@@ -84,6 +94,7 @@ class _HomePageState extends State<HomePage> with WidgetsBindingObserver {
   
   @override
   Widget build(BuildContext context) {
+    
     Screen.keepOn(true);
     switch (dropdownValue) {
       case "One":
@@ -135,6 +146,10 @@ class _HomePageState extends State<HomePage> with WidgetsBindingObserver {
         countMinutes -= 60;
         countHours += 1;
       }
+      
+      if(countHours > 23){
+      countHours -= 24;
+      }
       if(first){
         minutesSlept = countMinutes;
         hoursSlept = countHours;
@@ -145,6 +160,7 @@ class _HomePageState extends State<HomePage> with WidgetsBindingObserver {
     if (stop1.elapsedMilliseconds >= 10000) {
       boolt = true;
     }
+   
     var height = MediaQuery.of(context).size.height;
     var width = MediaQuery.of(context).size.width;
     var hi = Column(children: [
@@ -229,6 +245,7 @@ class _HomePageState extends State<HomePage> with WidgetsBindingObserver {
             animation: "Space Ship",
           )),
     ]);
+    
     var children = <Widget>[hi];
     if (boolt) {
       children.clear();
@@ -330,7 +347,7 @@ class _HomePageState extends State<HomePage> with WidgetsBindingObserver {
   }
 Future<void> _sleepDone(BuildContext context) {
    MyApp.saveload();
-  String timeSlept = "Night 0\n\n"+ hoursSlept.toString() + " hours\n" +minutesSlept.toString() + " minutes\nslept\n";
+  String timeSlept = "Night " + nightSave.toString() + "\n\n"+ hoursSlept.toString() + " hours\n" +minutesSlept.toString() + " minutes\nslept\n";
   return showDialog<void>(
     context: context,
     builder: (BuildContext context) {
@@ -390,7 +407,9 @@ Future<void> _sleepDone(BuildContext context) {
         ],
       );
     },
+    
   );
+  
 }
 
   String _formatDateTime(DateTime dateTime) {
@@ -398,3 +417,23 @@ Future<void> _sleepDone(BuildContext context) {
   }
 }
 
+Future<void> _help(BuildContext context) {
+  return showDialog<void>(
+    context: context,
+    builder: (BuildContext context) {
+      return AlertDialog(
+        title: Text('Help'),
+        content: Text(
+            "Once you have pressed the start button, your phone will go to sleep and any time spent on your phone before your scheduled wake up time will be recorded. Please put your phone on do not disturb and please do not turn off your phone.(leave it on home page of app). By leaving it on homepage the screen will slowly go black to give the apperance that it has fallen asleep so that your phone will not overheat or lose much battery overnight."),
+        actions: <Widget>[
+          FlatButton(
+            child: Text('Ok'),
+            onPressed: () {
+              Navigator.of(context).pop();
+            },
+          ),
+        ],
+      );
+    },
+  );
+}
