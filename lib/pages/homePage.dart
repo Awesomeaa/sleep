@@ -328,31 +328,6 @@ class _HomePageState extends State<HomePage> with WidgetsBindingObserver {
         " Seconds";
         
   }
-  String saa1() {
-    MyApp.saveload();
-
-    seconds = (milleseconds / 1000).toInt();
-    minutes = (seconds / 60).toInt();
-    hours = (minutes / 60).toInt();
-    while (seconds >= 60) {
-      seconds -= 60;
-    }
-    while (minutes >= 60) {
-      minutes -= 60;
-    }
-    if (milleseconds > 0) {
-      _textColor = Colors.red;
-    } else {
-      _textColor = Color(0xff003ABA);
-    }
-    return hours.toString() +
-        " Hours \n" +
-        minutes.toString() +
-        " Minutes \n" +
-        seconds.toString() +
-        " Seconds";
-        
-  }
 Future<void> _sleepDone(BuildContext context) {
    MyApp.saveload();
   String timeSlept = "Night 0\n\n"+ hoursSlept.toString() + " hours\n" +minutesSlept.toString() + " minutes\nslept\n";
