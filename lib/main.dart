@@ -24,22 +24,14 @@ class MyApp extends StatelessWidget {
       prefs.setInt('milli', milleseconds);
       prefs.setString("name", name) ?? '';
       prefs.setInt('night', nightSave);
-<<<<<<< HEAD
       prefs.setStringList('phoneTimeList', phoneTimeList);
-=======
->>>>>>> 68f964d3a2ec43bd9783ad7465723be2e789ca72
     }
     void Load() async{
       final prefs = await SharedPreferences.getInstance();
       addmilli = prefs.getInt('milli');
       name = prefs.getString('name');
       nightSave = prefs.getInt('night');
-<<<<<<< HEAD
       phoneTimeList = prefs.getStringList('phoneTimeList');
-=======
->>>>>>> 68f964d3a2ec43bd9783ad7465723be2e789ca72
-      print("oof" + name);
-    }
 
     void nameLoad() async{
       final prefs = await SharedPreferences.getInstance();
@@ -63,7 +55,7 @@ class MyApp extends StatelessWidget {
       milleseconds = addmilli + stop.elapsedMilliseconds;
     }
   }
-
+  }
   Widget build(BuildContext context) {
     if(name == null || name == "")
     {
