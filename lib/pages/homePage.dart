@@ -16,7 +16,10 @@ int dropdownInt = 7;
 int hoursSlept;
 int minutesSlept;
 int nightSave = 1;
+<<<<<<< HEAD
 List<String> phoneTimeList = [];
+=======
+>>>>>>> 68f964d3a2ec43bd9783ad7465723be2e789ca72
 var hours = 0;
   var minutes = 0;
   var seconds = 0;
@@ -27,6 +30,7 @@ class HomePage extends StatefulWidget {
 }
 class _HomePageState extends State<HomePage> with WidgetsBindingObserver {
   void _ooga(){
+<<<<<<< HEAD
   if(this.mounted){(setState(() {
         print(isStart);
         if(isStart){
@@ -43,6 +47,18 @@ class _HomePageState extends State<HomePage> with WidgetsBindingObserver {
           }
     }
     }));}
+=======
+  setState(() {
+        if(isStart){
+          if(countMinutes == 0 && countHours == 0){//countMinutes == 42 && countHours == 0){
+            isStart = false;
+            nightSave += 1;
+            MyApp.saveload();
+            _sleepDone(context);
+          }
+    }
+    });
+>>>>>>> 68f964d3a2ec43bd9783ad7465723be2e789ca72
 }
   String _timeString;
   @override
@@ -55,7 +71,11 @@ class _HomePageState extends State<HomePage> with WidgetsBindingObserver {
     WidgetsBinding.instance.addObserver(this);
     _timeString = _formatDateTime(DateTime.now());
     Timer.periodic(Duration(seconds: 1), (Timer t) => _getTime());
+<<<<<<< HEAD
     Timer.periodic(Duration(seconds: 1), (Timer t) => _ooga());
+=======
+    Timer.periodic(Duration(seconds: 5), (Timer t) => _ooga());
+>>>>>>> 68f964d3a2ec43bd9783ad7465723be2e789ca72
     first = true;
   }
 
@@ -101,6 +121,7 @@ class _HomePageState extends State<HomePage> with WidgetsBindingObserver {
   
   @override
   Widget build(BuildContext context) {
+    
     Screen.keepOn(true);
     switch (dropdownValue) {
       case "One":
