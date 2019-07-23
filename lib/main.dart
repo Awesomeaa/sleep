@@ -41,7 +41,7 @@ class MyApp extends StatelessWidget {
       final prefs = await SharedPreferences.getInstance();
       addmilli = prefs.getInt('milli');
       name = prefs.getString('name');
-      nightSave = prefs.getInt('night');
+      nightSave = prefs.getInt('night') ?? 0;
       phoneTimeList = prefs.getStringList('phoneTimeList');
       //print("oof" + name);
     }
