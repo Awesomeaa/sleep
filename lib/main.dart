@@ -18,6 +18,17 @@ class MyApp extends StatelessWidget {
   // This widget is the root of your application.
   @override
   
+  static clearMilli(){
+    void clear() async{
+      final prefs = await SharedPreferences.getInstance();
+      prefs.remove('milli');
+    }
+    void awaitclear() async{
+      await clear();
+    }
+    awaitclear();
+  }
+
   static saveload() {
     void Save() async{
       final prefs = await SharedPreferences.getInstance();
@@ -32,6 +43,8 @@ class MyApp extends StatelessWidget {
       name = prefs.getString('name');
       nightSave = prefs.getInt('night');
       phoneTimeList = prefs.getStringList('phoneTimeList');
+      //print("oof" + name);
+    }
 
     void nameLoad() async{
       final prefs = await SharedPreferences.getInstance();
@@ -47,14 +60,15 @@ class MyApp extends StatelessWidget {
       nameLoad();
       nameBool = false;
     }
-
+    if(!isStart){
+      addmilli = 0;
+    }
     if (!startup){
       Load();
       startup = !startup;
     }else {
       milleseconds = addmilli + stop.elapsedMilliseconds;
     }
-  }
   }
   Widget build(BuildContext context) {
     if(name == null || name == "")

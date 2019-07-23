@@ -329,6 +329,10 @@ class _StartPageState extends State<StartPage> {
                         ),
                         onTap: () {
                           isStart = !isStart;
+                          milleseconds = 0;
+                          addmilli = 0;
+                          stop.reset();
+                          MyApp.saveload();
                         },
                       ),
                     ),

@@ -16,9 +16,7 @@ int dropdownInt = 7;
 int hoursSlept;
 int minutesSlept;
 int nightSave = 1;
-
-List<String> phoneTimeList = [];
-
+List<String> phoneTimeList = ["0","1","2"];
 var hours = 0;
   var minutes = 0;
   var seconds = 0;
@@ -29,16 +27,23 @@ class HomePage extends StatefulWidget {
 }
 class _HomePageState extends State<HomePage> with WidgetsBindingObserver {
   void _ooga(){
+  if (this.mounted) {
   setState(() {
         if(isStart){
-          if(countMinutes == 0 && countHours == 0){//countMinutes == 42 && countHours == 0){
-            isStart = false;
+          if(countMinutes == 0 && countHours == 0){
             nightSave += 1;
             MyApp.saveload();
+            
+            phoneTimeList.add( milleseconds.toString());
+            print(phoneTimeList);
             _sleepDone(context);
+            milleseconds = 0;
+            MyApp.clearMilli();
+            isStart = false;
           }
     }
     });
+  }
 }
   String _timeString;
   @override
@@ -51,7 +56,7 @@ class _HomePageState extends State<HomePage> with WidgetsBindingObserver {
     WidgetsBinding.instance.addObserver(this);
     _timeString = _formatDateTime(DateTime.now());
     Timer.periodic(Duration(seconds: 1), (Timer t) => _getTime());
-    Timer.periodic(Duration(seconds: 5), (Timer t) => _ooga());
+    Timer.periodic(Duration(seconds: 1), (Timer t) => _ooga());
     first = true;
   }
 
@@ -76,6 +81,7 @@ class _HomePageState extends State<HomePage> with WidgetsBindingObserver {
         break;
       case AppLifecycleState.resumed:
         stop.stop();
+        stop1.reset();
         break;
       case AppLifecycleState.inactive:
         break;
@@ -261,10 +267,7 @@ class _HomePageState extends State<HomePage> with WidgetsBindingObserver {
       Container(
           width: 400,
           height: 350,
-          child: FlareActor(
-            "assets/Space Ship (1).flr",
-            animation: "Space Ship",
-          )),
+          child: flareActor)
     ]);
     
     var children = <Widget>[hi];
@@ -343,6 +346,11 @@ class _HomePageState extends State<HomePage> with WidgetsBindingObserver {
 
   String saa() {
     MyApp.saveload();
+    if(!isStart){
+      milleseconds = 0;
+      MyApp.clearMilli();
+    }
+
 
     seconds = (milleseconds / 1000).toInt();
     minutes = (seconds / 60).toInt();
@@ -353,6 +361,8 @@ class _HomePageState extends State<HomePage> with WidgetsBindingObserver {
     while (minutes >= 60) {
       minutes -= 60;
     }
+
+
     if (milleseconds > 0) {
       _textColor = Colors.red;
     } else {
