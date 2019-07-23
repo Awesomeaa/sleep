@@ -11,6 +11,7 @@ String startText = "START";
 bool swipeUp = false;
 String name;
 
+
 class StartPage extends StatefulWidget {
   _StartPageState createState() => _StartPageState();
 }
@@ -30,6 +31,8 @@ class _StartPageState extends State<StartPage> {
 
   @override
   Widget build(BuildContext context) {
+    var height = MediaQuery.of(context).size.height;
+    var width = MediaQuery.of(context).size.width;
     if (!isStart) {
       if (this.mounted) {
         setState(() {
@@ -94,13 +97,10 @@ class _StartPageState extends State<StartPage> {
       nameBool = true;
     }
     //print(textFieldController.text);
-
-    var height = MediaQuery.of(context).size.height;
-    var width = MediaQuery.of(context).size.width;
     return Scaffold(
       body: Container(
         child: Container(
-          decoration: BoxDecoration(color: Color(0xff003ABA)
+          decoration: BoxDecoration(color: Color(0xFF054BAF)
               /*
               gradient: LinearGradient(
                   begin: Alignment.bottomRight,

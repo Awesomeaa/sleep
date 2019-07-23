@@ -7,12 +7,23 @@ class StatisticsPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: Colors.white,
-          body: Container(
-        child: FlareActor(
-          "assets/fade to black (2).flr",
-          animation: "fade to black",
-        )
+      backgroundColor: Color(0xFF054BAF),
+          body: Column(
+            children: <Widget>[
+              Row(
+                mainAxisAlignment: MainAxisAlignment.start,
+                children: <Widget>[
+                  Container(
+                    margin: EdgeInsets.only(top: 50),
+                    color: Colors.red,
+                    child: Text("Night 1")
+                  ),
+                ],
+              ),
+              Container(),
+              Container(),
+              Container()
+            ],
       ),
     );
   }

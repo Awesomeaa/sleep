@@ -104,10 +104,13 @@ class _HomePageState extends State<HomePage> with WidgetsBindingObserver {
   
   @override
   Widget build(BuildContext context) {
+    var height = MediaQuery.of(context).size.height;
+    var width = MediaQuery.of(context).size.width;
+    print(width.toString() + " " + height.toString());
     if(milleseconds> 10000){
       flareActor = Container(
-          width: 400,
-          height: 350,
+          width: width * .966183576,
+          height: height * .390625,
           child: FlareActor(
             "assets/Space Ship Crash.flr",
             animation: "Space Ship",
@@ -115,8 +118,8 @@ class _HomePageState extends State<HomePage> with WidgetsBindingObserver {
     }
     else{
       flareActor = Container(
-          width: 400,
-          height: 350,
+          width: width * .966183576,
+          height: height * .390625,
           child: FlareActor(
             "assets/Space Ship (1).flr",
             animation: "Space Ship",
@@ -188,8 +191,6 @@ class _HomePageState extends State<HomePage> with WidgetsBindingObserver {
       boolt = true;
     }
    
-    var height = MediaQuery.of(context).size.height;
-    var width = MediaQuery.of(context).size.width;
     var hi = Column(children: [
       Container(
         child: Text("The time is",
@@ -221,7 +222,7 @@ class _HomePageState extends State<HomePage> with WidgetsBindingObserver {
         child: Column(
           children: <Widget>[
             Container(
-              width: 350,
+              width: width * .84541062801,
               alignment: Alignment.topCenter,
               child: Text(
                 countHours.toString() +
@@ -248,7 +249,7 @@ class _HomePageState extends State<HomePage> with WidgetsBindingObserver {
         child: Column(
           children: <Widget>[
             Container(
-              width: 350,
+              width: width * .84541062801,
               alignment: Alignment.topCenter,
               child: Text(
                 saa(),
@@ -265,7 +266,7 @@ class _HomePageState extends State<HomePage> with WidgetsBindingObserver {
         ),
       ),
       Container(
-          width: 400,
+          width: width*.96618357487,
           height: 350,
           child: flareActor)
     ]);
@@ -278,7 +279,7 @@ class _HomePageState extends State<HomePage> with WidgetsBindingObserver {
             width: width,
             height: height,
             child: FlareActor(
-              "assets/fade to black (2).flr",
+              "assets/fade to black (3).flr",
               alignment: Alignment.center,
               fit: BoxFit.contain,
               animation: "fade to black",
@@ -288,11 +289,10 @@ class _HomePageState extends State<HomePage> with WidgetsBindingObserver {
       if (tapped) {
         children.clear();
         children.add(Container(
-            color: Color(0xff003ABA),
             width: width,
             height: height,
             child: FlareActor(
-              "assets/fade to white 2.flr",
+              "assets/fade to white 2 (1).flr",
               alignment: Alignment.center,
               fit: BoxFit.contain,
               animation: "fade to white",
@@ -314,13 +314,8 @@ class _HomePageState extends State<HomePage> with WidgetsBindingObserver {
           stop1.reset();
         },
         child: Scaffold(
+          backgroundColor: Color(0xFF054BAF),
           body: Container(
-            decoration: BoxDecoration(
-                gradient: LinearGradient(
-                    begin: Alignment.bottomRight,
-                    end: Alignment.topLeft,
-                    stops: [0.3, .9],
-                    colors: [Color(0xff003593), Color(0xff003ABA)])),
             child: Row(
               mainAxisAlignment: MainAxisAlignment.center,
               children: <Widget>[
