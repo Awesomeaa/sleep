@@ -23,11 +23,15 @@ class MyApp extends StatelessWidget {
       final prefs = await SharedPreferences.getInstance();
       prefs.setInt('milli', milleseconds);
       prefs.setString("name", name) ?? '';
+      prefs.setInt('night', nightSave);
+      prefs.setStringList('phoneTimeList', phoneTimeList);
     }
     void Load() async{
       final prefs = await SharedPreferences.getInstance();
       addmilli = prefs.getInt('milli');
       name = prefs.getString('name');
+      nightSave = prefs.getInt('night');
+      phoneTimeList = prefs.getStringList('phoneTimeList');
       print("oof" + name);
     }
 

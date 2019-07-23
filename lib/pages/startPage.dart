@@ -12,7 +12,6 @@ bool swipeUp = false;
 String name;
 
 class StartPage extends StatefulWidget {
-  
   _StartPageState createState() => _StartPageState();
 }
 
@@ -26,14 +25,27 @@ class _StartPageState extends State<StartPage> {
 
   @override
   void dispose() {
-
     super.dispose();
   }
-  
+
   @override
   Widget build(BuildContext context) {
-    if(name == null || name == "")
-    {
+    if (!isStart) {
+      if (this.mounted) {
+        setState(() {
+          swipeUp = false;
+          startText = "START";
+        });
+      }
+    } else {
+      if (this.mounted) {
+        setState(() {
+          swipeUp = true;
+          startText = "STOP";
+        });
+      }
+    }
+    if (name == null || name == "") {
       name = "Name";
     }
     switch (dropdownValue) {
@@ -77,10 +89,10 @@ class _StartPageState extends State<StartPage> {
     String hi = dropdownInt.toString() + ":00";
     String marker = "am";
     MyApp.saveload();
-      if (textFieldController.text != '') {
+    if (textFieldController.text != '') {
       name = textFieldController.text;
       nameBool = true;
-      }
+    }
     //print(textFieldController.text);
 
     var height = MediaQuery.of(context).size.height;
@@ -135,10 +147,10 @@ class _StartPageState extends State<StartPage> {
                             style: TextStyle(
                                 fontWeight: FontWeight.bold, fontSize: 50.4)),
                         onTap: () {
-                          if(this.mounted){
-                          setState(() {
-                            _inputName(context);
-                          });
+                          if (this.mounted) {
+                            setState(() {
+                              _inputName(context);
+                            });
                           }
                         },
                       ),
@@ -211,11 +223,11 @@ class _StartPageState extends State<StartPage> {
                           DropdownButton<String>(
                             value: dropdownValue,
                             onChanged: (String newValue) {
-                              if(this.mounted){
-                              setState(() {
-                                dropdownValue = newValue;
-                              });
-                              } 
+                              if (this.mounted) {
+                                setState(() {
+                                  dropdownValue = newValue;
+                                });
+                              }
                             },
                             items: <String>[
                               'One',
@@ -250,10 +262,10 @@ class _StartPageState extends State<StartPage> {
                     ),
                     GestureDetector(
                         onTap: () {
-                          if(this.mounted){
-                          setState(() {
-                            _help(context);
-                          });
+                          if (this.mounted) {
+                            setState(() {
+                              _help(context);
+                            });
                           }
                         },
                         child: Container(
@@ -317,21 +329,6 @@ class _StartPageState extends State<StartPage> {
                         ),
                         onTap: () {
                           isStart = !isStart;
-                          if (startText == "STOP") {
-                            if(this.mounted){
-                            setState(() {
-                              swipeUp = false;
-                              startText = "START";
-                            });
-                            }
-                          } else {
-                            if(this.mounted){
-                            setState(() {
-                              swipeUp = true;
-                              startText = "STOP";
-                            });
-                            }
-                          }
                         },
                       ),
                     ),
@@ -343,9 +340,10 @@ class _StartPageState extends State<StartPage> {
                           children: <Widget>[
                             Container(
                               decoration: BoxDecoration(
-                          color: Color(0xff003ABA),
-                        ),
-                              padding: EdgeInsets.only(top: 5, left: 5,bottom: 5),
+                                color: Color(0xff003ABA),
+                              ),
+                              padding:
+                                  EdgeInsets.only(top: 5, left: 5, bottom: 5),
                               alignment: Alignment.bottomCenter,
                               margin: EdgeInsets.only(top: 20),
                               child: Text(
@@ -355,8 +353,8 @@ class _StartPageState extends State<StartPage> {
                             ),
                             Container(
                               decoration: BoxDecoration(
-                          color: Color(0xff003ABA),
-                        ),
+                                color: Color(0xff003ABA),
+                              ),
                               padding: EdgeInsets.all(1.5),
                               alignment: Alignment.bottomCenter,
                               margin: EdgeInsets.only(top: 20),
@@ -381,8 +379,8 @@ class _StartPageState extends State<StartPage> {
   }
 
   void stateSet() {
-    if(this.mounted){
-    setState(() {});
+    if (this.mounted) {
+      setState(() {});
     }
   }
 }
