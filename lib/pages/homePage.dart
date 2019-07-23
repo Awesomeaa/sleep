@@ -16,7 +16,7 @@ int dropdownInt = 7;
 int hoursSlept;
 int minutesSlept;
 int nightSave = 1;
-List<String> phoneTimeList = ["0","1","2"];
+List<String> phoneTimeList = [];
 var hours = 0;
   var minutes = 0;
   var seconds = 0;
@@ -30,7 +30,7 @@ class _HomePageState extends State<HomePage> with WidgetsBindingObserver {
   if (this.mounted) {
   setState(() {
         if(isStart){
-          if(countMinutes == 0 && countHours == 0){
+          if(true){
             nightSave += 1;
             MyApp.saveload();
             
@@ -106,7 +106,7 @@ class _HomePageState extends State<HomePage> with WidgetsBindingObserver {
   Widget build(BuildContext context) {
     var height = MediaQuery.of(context).size.height;
     var width = MediaQuery.of(context).size.width;
-    print(width.toString() + " " + height.toString());
+    //print(width.toString() + " " + height.toString());
     if(milleseconds> 10000){
       flareActor = Container(
           width: width * .966183576,
